@@ -16,7 +16,7 @@ namespace AR.BackgroundJobs
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
-            _logger = logger;
+           _logger = logger;
         }
 
         public IConfiguration Configuration { get; }
@@ -37,6 +37,7 @@ namespace AR.BackgroundJobs
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -47,15 +48,6 @@ namespace AR.BackgroundJobs
             }
 
             app.UseStaticFiles();
-
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
-            {
-                //endpoints.MapRazorPages();
-            });
         }
     }
 }

@@ -8,6 +8,7 @@ namespace AR.BackgroundJobs.Configuration
 
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
+            services.AddLogging();
             return services;
         }
 
