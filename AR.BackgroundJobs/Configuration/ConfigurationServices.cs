@@ -1,4 +1,7 @@
-﻿using Hangfire;
+﻿using AR.BackgroundJobs.Jobs;
+using AR.BackgroundJobs.Jobs.Config;
+using AR.BackgroundJobs.Jobs.Interfaces;
+using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -16,8 +19,6 @@ namespace AR.BackgroundJobs.Configuration
         /// <returns></returns>
         public static IServiceCollection AddServices(this IServiceCollection services, string hangFireConn)
         {
-            //services.AddLogging();
-
             #region HangFire
             services.AddHangfire(configuration => configuration
                 .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
@@ -36,6 +37,13 @@ namespace AR.BackgroundJobs.Configuration
 
             services.AddHangfireServer();
             #endregion HangFire
+
+            #region Jobs
+            services.AddSingleton<IRecurringJobScheduler, RecurringJobScheduler>();
+
+            services.AddTransient<TestJob>();
+            services.AddTransient<TestJob2>();
+            #endregion Jobs
 
             return services;
         }

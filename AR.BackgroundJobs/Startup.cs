@@ -14,15 +14,14 @@ namespace AR.BackgroundJobs
     {
         private readonly ILogger<Startup> _logger;
 
+        public IConfiguration Configuration { get; }
+
         public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             Configuration = configuration;
            _logger = logger;
         }
 
-        public IConfiguration Configuration { get; }
-
-       
         public void ConfigureServices(IServiceCollection services)
         {
             string hangFireConn = Configuration.GetConnectionString("HangfireConnection");
@@ -40,6 +39,7 @@ namespace AR.BackgroundJobs
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHangfireDashboard();
+            app.ApplicationServices.AddJobs(Configuration);
 
             if (env.IsDevelopment())
             {

@@ -31,5 +31,10 @@ namespace AR.BackgroundJobs.Jobs.Config
         {
             RecurringJob.RemoveIfExists(cronJobEntity.Name);
         }
+
+        internal void Register<T>(object anulacionCreditoJob)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
