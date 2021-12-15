@@ -1,4 +1,5 @@
 using AR.BackgroundJobs.Configuration;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,11 +25,12 @@ namespace AR.BackgroundJobs
        
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddServices();
-
+            string hangFireConn = Configuration.GetConnectionString("HangfireConnection");
+            services.AddServices(hangFireConn);
+           
             #region Startup Log
             _logger.LogInformation("============ STARTUP ================");
-            _logger.LogInformation($"SQL ConnectionString: {"Hola"}");
+            _logger.LogInformation($"Hangfire Connection: {hangFireConn}");
             _logger.LogInformation($"Date = {DateTime.UtcNow.ToLocalTime()}");
             _logger.LogInformation("============ END STARTUP ============");
             #endregion Startup Log
@@ -37,6 +39,7 @@ namespace AR.BackgroundJobs
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseHangfireDashboard();
 
             if (env.IsDevelopment())
             {
