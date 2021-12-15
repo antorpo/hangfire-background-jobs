@@ -1,0 +1,3 @@
+STEPS:
+1. Create a database for Hangfire
+2. Get the connection string and configure in appsettings.json
